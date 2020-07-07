@@ -2,6 +2,7 @@ const parseDomain = require("parse-domain");
 
 const domains = {
   "101cookbooks": require("./101cookbooks"),
+  alexandracooks: require("./alexandracooks"),
   allrecipes: require("./allrecipes"),
   ambitiouskitchen: require("./ambitiouskitchen"),
   averiecooks: require("./averiecooks"),
@@ -33,6 +34,7 @@ const domains = {
   thepioneerwoman: require("./thepioneerwoman"),
   therealfoodrds: require("./therealfoodrds"),
   thespruceeats: require("./thespruceeats"),
+  vegrecipesofindia: require("./vegrecipesofindia"),
   whatsgabycooking: require("./whatsgabycooking"),
   woolworths: require("./woolworths"),
   yummly: require("./yummly")

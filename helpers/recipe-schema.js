@@ -1,5 +1,6 @@
 function Recipe() {
   this.name = "";
+  this.defaultFlag = false;
   this.ingredients = [];
   this.instructions = [];
   this.time = {

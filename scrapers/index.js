@@ -37,6 +37,8 @@ const domains = {
   yummly: require("./yummly")
 };
 
+const defaultDomain = require("./defaultDomain")
+
 const recipeScraper = url => {
   return new Promise((resolve, reject) => {
     let parse = parseDomain(url);
@@ -44,9 +46,9 @@ const recipeScraper = url => {
       let domain = parse.domain;
       if (domains[domain] !== undefined) {
         resolve(domains[domain](url));
+        
       } else {
-        reject(new Error("Site not yet supported"));
-      }
+        resolve(defaultDomain(url));      }
     } else {
       reject(new Error("Failed to parse domain"));
     }

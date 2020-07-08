@@ -24,7 +24,6 @@ const domains = {
   gimmesomeoven: require("./gimmesomeoven"),
   kitchenstories: require("./kitchenstories"),
   maangchi: require("./maangchi"),
-
   minimalistbaker: require("./minimalistbaker"),
   myrecipes: require("./myrecipes"),
   nomnompaleo: require("./nomnompaleo"),

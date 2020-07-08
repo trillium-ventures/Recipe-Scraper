@@ -32,6 +32,7 @@ const defaultDomain = url => {
                 resolve(Recipe);
                 // }
             } else {
+                console.log("SERVER RESPONSE: ", response.statusCode)
                 reject(new Error("No recipe found on page"));
             }
         });

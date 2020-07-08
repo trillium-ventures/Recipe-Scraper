@@ -34,7 +34,6 @@ const Maangchi = url => {
             }
           })
 
-          console.log("HERE IS RECIPE: ", Recipe)
           if (
             !Recipe.name ||
             !Recipe.ingredients.length

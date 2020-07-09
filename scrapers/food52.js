@@ -46,8 +46,8 @@ const food52 = url => {
             resolve(Recipe);
           }
         } else {
-          console.log("HERE IS RESPONSE: ", response);
-          reject(new Error("No recipe found on page"));
+          console.log("HERE IS RESPONSE: ", response, response.statusCode);
+          reject(new Error("SERVER REJECTION"));
         }
       });
     }

@@ -19,6 +19,7 @@ const domains = {
   epicurious: require("./epicurious"),
   finecooking: require("./finecooking"),
   food: require("./food"),
+  food52: require("./food52"),
   foodandwine: require("./foodandwine"),
   foodnetwork: require("./foodnetwork"),
   gimmesomeoven: require("./gimmesomeoven"),

@@ -17,30 +17,22 @@ const saveur = url => {
           Recipe.name = $("meta[property='og:title']").attr("content");
 
           $(".ingredient")
-            .find("h4, li")
             .each((i, el) => {
               Recipe.ingredients.push($(el).text());
             });
+            
+            $(".instruction")
+            .each((i, el) => {
+              Recipe.instructions.push($(el).text());
+            });
 
-          // $(".tasty-recipe-instructions")
-          //   .find("li")
-          //   .each((i, el) => {
-          //     Recipe.instructions.push($(el).text());
-          //   });
 
-          // Recipe.time.prep = $(".tasty-recipes-prep-time").text();
-          // Recipe.time.cook = $(".tasty-recipes-cook-time").text();
-          // Recipe.time.total = $(".tasty-recipes-total-time").text();
-
-          // $(".tasty-recipes-yield-scale").remove();
-          // Recipe.servings = $(".tasty-recipes-yield")
-          //   .text()
-          //   .trim();
+          Recipe.time.total = $(".cookTime").text().trim().replace("Time:", "");
+          Recipe.servings = $(".recipeYield").text().trim().replace("Yield:", "").replace("serves","");
 
           if (
-            !Recipe.name
-            // !Recipe.ingredients.length ||
-            // !Recipe.instructions.length
+            !Recipe.name || 
+            !Recipe.ingredients.length 
           ) {
             reject(new Error("No recipe found on page"));
           } else {

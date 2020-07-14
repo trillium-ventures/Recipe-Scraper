@@ -14,7 +14,7 @@ const theWoksOfLife = url => {
           const $ = cheerio.load(html);
 
           Recipe.image = $("meta[property='og:image']").attr("content");
-          Recipe.image = $("meta[property='og:title']").attr("content");
+          Recipe.name = $("meta[property='og:title']").attr("content");
 
 
           $(".wprm-recipe-ingredient")

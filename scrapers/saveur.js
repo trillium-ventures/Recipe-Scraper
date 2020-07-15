@@ -27,8 +27,8 @@ const saveur = url => {
             });
 
 
-          Recipe.time.total = $(".cookTime").text().trim().replace("Time:", "");
-          Recipe.servings = $(".recipeYield").text().trim().replace("Yield:", "").replace("serves","");
+          Recipe.time.total = $(".cook-time").text().trim().replace("Time:", "");
+          Recipe.servings = $(".yield").text().trim().replace("Yield:", "").replace("serves","");
 
           if (
             !Recipe.name || 

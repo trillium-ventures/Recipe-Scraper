@@ -6,8 +6,8 @@ const RecipeSchema = require("../helpers/recipe-schema");
 const foodAndWine = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("foodandwine.com")) {
-      reject(new Error("url provided must include 'foodandwine.com'"));
+    if (!url.includes("foodandwine.com/recipes/")) {
+      reject(new Error("url provided must include 'foodandwine.com/recipes/'"));
     } else {
       request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {

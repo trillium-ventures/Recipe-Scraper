@@ -9,7 +9,6 @@ const defaultDomain = url => {
         request(url, (error, response, html) => {
             if (!error && response.statusCode === 200) {
                 const $ = cheerio.load(html);
-
                 Recipe.image = $("meta[property='og:image']").attr("content");
                 if (!Recipe.image) {
                     Recipe.image = "";
@@ -118,7 +117,16 @@ const defaultDomain = url => {
                 }
 
                 if (Recipe.ingredients.length === 0) {
+                    Recipe.ingredients = []
                     Recipe.defaultFlag = true;
+                }
+
+                if(!Recipe.name) {
+                    Recipe.name = ""
+                }
+
+                if (!Recipe.image) {
+                    Recipe.image =""
                 }
 
                 resolve(Recipe);

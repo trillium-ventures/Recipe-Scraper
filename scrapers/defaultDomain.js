@@ -22,11 +22,22 @@ const defaultDomain = url => {
                     Recipe.name = "";
                 }
 
-                Recipe.defaultFlag = true;
+                $(".wprm-recipe-ingredient").each(function(i, el){
+                    Recipe.ingredients.push($(el).text());
+                })
+                if (!Recipe.ingredients) {
+                    Recipe.ingredients = [];
+                }
 
+                $(".wprm-recipe-instruction-text").each(function(i, el){
+                    Recipe.instructions.push($(el).text());
+                })
+                if (!Recipe.instructions) {
+                    Recipe.instructions = [];
+                }
+
+                Recipe.defaultFlag = true;
                 Recipe.time = "";
-                Recipe.instructions = "";
-                Recipe.ingredients = "";
                 Recipe.servings = "";
 
                 resolve(Recipe);

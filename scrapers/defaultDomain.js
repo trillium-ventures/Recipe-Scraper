@@ -19,22 +19,33 @@ const defaultDomain = url => {
                     Recipe.name = $("meta[name='description']").attr("content");
                 }
                 if (!Recipe.name) {
+                    Recipe.name = $(".wprm-recipe-name").text();
+                }
+
+                if (!Recipe.name) {
                     Recipe.name = "";
                 }
 
                 $(".wprm-recipe-ingredient").each(function(i, el){
-                    Recipe.ingredients.push($(el).text());
+                    console.log("FOUND A RECIPE INGREDIENT: ")
+                    console.log()
+                    Recipe.ingredients.push(
+                        $(el)
+                          .text()
+                          .replace(/\s\s+/g, " ")
+                          .trim()
+                      );
                 })
-                if (!Recipe.ingredients) {
-                    Recipe.ingredients = [];
-                }
+                // if (!Recipe.ingredients) {
+                //     Recipe.ingredients = [];
+                // }
 
                 $(".wprm-recipe-instruction-text").each(function(i, el){
                     Recipe.instructions.push($(el).text());
                 })
-                if (!Recipe.instructions) {
-                    Recipe.instructions = [];
-                }
+                // if (!Recipe.instructions) {
+                //     Recipe.instructions = [];
+                // }
 
                 Recipe.defaultFlag = true;
                 Recipe.time = "";

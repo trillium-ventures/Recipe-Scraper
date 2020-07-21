@@ -28,11 +28,27 @@ const defaultDomain = url => {
                       Recipe.ingredients.push($(el).text());
                     });
 
+                    if (Recipe.ingredients.length == 0) {
+                        $(".tasty-recipe-ingredients")
+                        .find("li")
+                        .each((i, el) => {
+                          Recipe.ingredients.push($(el).text());
+                        });
+                    }
+
                     $(".tasty-recipes-instructions")
                     .find("li")
                     .each((i, el) => {
                       Recipe.instructions.push($(el).text());
                     });
+
+                    if (Recipe.instructions.length == 0) {
+                        $(".tasty-recipe-instructions")
+                        .find("li")
+                        .each((i, el) => {
+                          Recipe.instructions.push($(el).text());
+                        });
+                    }
         
                   Recipe.time.prep = $(".tasty-recipes-prep-time").text();
                   Recipe.time.cook = $(".tasty-recipes-cook-time").text();
@@ -44,13 +60,9 @@ const defaultDomain = url => {
                     .trim();
                 }
 
-                else {
+                else if ($('.wprm-recipe').length > 0) {
                     if (!Recipe.name) {
                         Recipe.name = $(".wprm-recipe-name").text();
-                    }
-
-                    if (!Recipe.name) {
-                        Recipe.name = "";
                     }
 
                     $(".wprm-recipe-ingredient-group").each((i, el) => {
@@ -108,6 +120,7 @@ const defaultDomain = url => {
                 if (Recipe.ingredients.length === 0) {
                     Recipe.defaultFlag = true;
                 }
+
                 resolve(Recipe);
                 // }
             } else {

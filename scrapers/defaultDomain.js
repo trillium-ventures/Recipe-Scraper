@@ -26,30 +26,62 @@ const defaultDomain = url => {
                     Recipe.name = "";
                 }
 
-                $(".wprm-recipe-ingredient").each(function(i, el){
-                    console.log("FOUND A RECIPE INGREDIENT: ")
-                    console.log()
-                    Recipe.ingredients.push(
-                        $(el)
-                          .text()
-                          .replace(/\s\s+/g, " ")
-                          .trim()
-                      );
-                })
+                $(".wprm-recipe-ingredient-group").each((i, el) => {
+                    $(el)
+                      .find(".wprm-recipe-ingredient")
+                      .each((i, el) => {
+                        Recipe.ingredients.push(
+                          $(el)
+                            .text()
+                            .replace(/\s\s+/g, " ")
+                            .trim()
+                        );
+                      });
+                  });
+        
                 // if (!Recipe.ingredients) {
                 //     Recipe.ingredients = [];
                 // }
 
-                $(".wprm-recipe-instruction-text").each(function(i, el){
-                    Recipe.instructions.push($(el).text());
-                })
-                // if (!Recipe.instructions) {
-                //     Recipe.instructions = [];
-                // }
+                $(".wprm-recipe-instruction-group").each((i, el) => {
+                    Recipe.instructions.push(
+                      $(el)
+                        .children(".wprm-recipe-group-name")
+                        .text()
+                    );
+                    $(el)
+                      .find(".wprm-recipe-instruction-text")
+                      .each((i, elChild) => {
+                        Recipe.instructions.push($(elChild).text());
+                      });
+                  });
+
+                $(".wprm-recipe-times-container").each((i, el) => {
+                    let label = $(el)
+                      .children(".wprm-recipe-time-label")
+                      .text();
+                    let time = $(el)
+                      .children(".wprm-recipe-time")
+                      .text();
+                    if (label.includes("Prep")) {
+                      Recipe.time.prep = time;
+                    } else if (label.includes("Cook")) {
+                      Recipe.time.cook = time;
+                    } else if (label.includes("Resting")) {
+                      Recipe.time.inactive = time;
+                    } else if (label.includes("Total")) {
+                      Recipe.time.total = time;
+                    }
+                  });
+
+                Recipe.servings = $(".wprm-recipe-servings").text().trim();
+                if(!Recipe.servings) {
+                    Recipe.servings = $(".wprm-recipe-servings-with-unit")
+                    .text()
+                    .trim();
+                }
 
                 Recipe.defaultFlag = true;
-                Recipe.time = "";
-                Recipe.servings = "";
 
                 resolve(Recipe);
                 // }

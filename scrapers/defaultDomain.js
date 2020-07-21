@@ -38,10 +38,6 @@ const defaultDomain = url => {
                         );
                       });
                   });
-        
-                // if (!Recipe.ingredients) {
-                //     Recipe.ingredients = [];
-                // }
 
                 $(".wprm-recipe-instruction-group").each((i, el) => {
                     Recipe.instructions.push(
@@ -56,7 +52,7 @@ const defaultDomain = url => {
                       });
                   });
 
-                $(".wprm-recipe-times-container").each((i, el) => {
+                $(".wprm-recipe-time-container").each((i, el) => {
                     let label = $(el)
                       .children(".wprm-recipe-time-label")
                       .text();
@@ -81,8 +77,9 @@ const defaultDomain = url => {
                     .trim();
                 }
 
-                Recipe.defaultFlag = true;
-
+                if (Recipe.ingredients.length === 0) {
+                    Recipe.defaultFlag = true;
+                }
                 resolve(Recipe);
                 // }
             } else {

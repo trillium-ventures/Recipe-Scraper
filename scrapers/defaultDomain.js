@@ -18,63 +18,90 @@ const defaultDomain = url => {
                 if (!Recipe.name) {
                     Recipe.name = $("meta[name='description']").attr("content");
                 }
-                if (!Recipe.name) {
-                    Recipe.name = $(".wprm-recipe-name").text();
-                }
 
-                if (!Recipe.name) {
-                    Recipe.name = "";
-                }
+                // check if it is a tasty recipes plug in, and follow structure if yes.
+                if ($.hasClass('.tasty-recipes')) {
+                    $(".tasty-recipes-ingredients")
+                    .find("li")
+                    .each((i, el) => {
+                      Recipe.ingredients.push($(el).text());
+                    });
 
-                $(".wprm-recipe-ingredient-group").each((i, el) => {
-                    $(el)
-                      .find(".wprm-recipe-ingredient")
-                      .each((i, el) => {
-                        Recipe.ingredients.push(
-                          $(el)
-                            .text()
-                            .replace(/\s\s+/g, " ")
-                            .trim()
-                        );
-                      });
-                  });
-
-                $(".wprm-recipe-instruction-group").each((i, el) => {
-                    Recipe.instructions.push(
-                      $(el)
-                        .children(".wprm-recipe-group-name")
-                        .text()
-                    );
-                    $(el)
-                      .find(".wprm-recipe-instruction-text")
-                      .each((i, elChild) => {
-                        Recipe.instructions.push($(elChild).text());
-                      });
-                  });
-
-                $(".wprm-recipe-time-container").each((i, el) => {
-                    let label = $(el)
-                      .children(".wprm-recipe-time-label")
-                      .text();
-                    let time = $(el)
-                      .children(".wprm-recipe-time")
-                      .text();
-                    if (label.includes("Prep")) {
-                      Recipe.time.prep = time;
-                    } else if (label.includes("Cook")) {
-                      Recipe.time.cook = time;
-                    } else if (label.includes("Resting")) {
-                      Recipe.time.inactive = time;
-                    } else if (label.includes("Total")) {
-                      Recipe.time.total = time;
-                    }
-                  });
-
-                Recipe.servings = $(".wprm-recipe-servings").text().trim();
-                if(!Recipe.servings) {
-                    Recipe.servings = $(".wprm-recipe-servings-with-unit")
+                    $(".tasty-recipe-instructions")
+                    .find("li")
+                    .each((i, el) => {
+                      Recipe.instructions.push($(el).text());
+                    });
+        
+                  Recipe.time.prep = $(".tasty-recipes-prep-time").text();
+                  Recipe.time.cook = $(".tasty-recipes-cook-time").text();
+                  Recipe.time.total = $(".tasty-recipes-total-time").text();
+        
+                  $(".tasty-recipes-yield-scale").remove();
+                  Recipe.servings = $(".tasty-recipes-yield")
                     .text()
                     .trim();
+                }
+
+                else {
+                    if (!Recipe.name) {
+                        Recipe.name = $(".wprm-recipe-name").text();
+                    }
+
+                    if (!Recipe.name) {
+                        Recipe.name = "";
+                    }
+
+                    $(".wprm-recipe-ingredient-group").each((i, el) => {
+                        $(el)
+                        .find(".wprm-recipe-ingredient")
+                        .each((i, el) => {
+                            Recipe.ingredients.push(
+                            $(el)
+                                .text()
+                                .replace(/\s\s+/g, " ")
+                                .trim()
+                            );
+                        });
+                    });
+
+                    $(".wprm-recipe-instruction-group").each((i, el) => {
+                        Recipe.instructions.push(
+                        $(el)
+                            .children(".wprm-recipe-group-name")
+                            .text()
+                        );
+                        $(el)
+                        .find(".wprm-recipe-instruction-text")
+                        .each((i, elChild) => {
+                            Recipe.instructions.push($(elChild).text());
+                        });
+                    });
+
+                    $(".wprm-recipe-time-container").each((i, el) => {
+                        let label = $(el)
+                        .children(".wprm-recipe-time-label")
+                        .text();
+                        let time = $(el)
+                        .children(".wprm-recipe-time")
+                        .text();
+                        if (label.includes("Prep")) {
+                        Recipe.time.prep = time;
+                        } else if (label.includes("Cook")) {
+                        Recipe.time.cook = time;
+                        } else if (label.includes("Resting")) {
+                        Recipe.time.inactive = time;
+                        } else if (label.includes("Total")) {
+                        Recipe.time.total = time;
+                        }
+                    });
+
+                    Recipe.servings = $(".wprm-recipe-servings").text().trim();
+                    if(!Recipe.servings) {
+                        Recipe.servings = $(".wprm-recipe-servings-with-unit")
+                        .text()
+                        .trim();
+                    }
                 }
 
                 if (Recipe.ingredients.length === 0) {

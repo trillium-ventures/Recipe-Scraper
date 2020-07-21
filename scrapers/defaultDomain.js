@@ -20,7 +20,7 @@ const defaultDomain = url => {
                 }
 
                 // check if it is a tasty recipes plug in, and follow structure if yes.
-                if ($.hasClass('.tasty-recipes')) {
+                if ($('div').hasClass('.tasty-recipes')) {
                     $(".tasty-recipes-ingredients")
                     .find("li")
                     .each((i, el) => {

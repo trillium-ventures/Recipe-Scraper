@@ -98,7 +98,8 @@ const defaultDomain = url => {
 
                         console.log("HERE IS label: ", label )
 
-                        if (label == "") {
+                        if (!label) {
+                            console.log("FOUND A BLANK LABEL, CHECKING NEW LABEL")
                             label = $(el).
                             children("wprm-recipe-time-header")
                             .text();

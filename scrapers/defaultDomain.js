@@ -94,6 +94,12 @@ const defaultDomain = url => {
                         let label = $(el)
                         .children(".wprm-recipe-time-label")
                         .text();
+
+                        if (!label) {
+                            label = $(el).
+                            children("wprm-recipe-time-header")
+                            .text();
+                        }
                         let time = $(el)
                         .children(".wprm-recipe-time")
                         .text();
@@ -126,14 +132,14 @@ const defaultDomain = url => {
                 }
 
                 if (!Recipe.image) {
-                    Recipe.image =""
+                    Recipe.image = ""
                 }
 
                 resolve(Recipe);
                 // }
             } else {
                 console.log("SERVER RESPONSE: ", response.statusCode)
-                reject(new Error("No recipe found on page"));
+                reject(new Error("Server error"));
             }
         });
     });

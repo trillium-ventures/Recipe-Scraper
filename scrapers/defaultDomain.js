@@ -149,10 +149,8 @@ const defaultDomain = url => {
                         });
                     });
 
-                    $(".mv-create-instructions").each((i, el) => {
-                        $(el)
-                        .children()
-                        .each((i, el) => {
+                    $(".mv-create-instructions").find("li")
+                    .each((i, el) => {
                             var text = 
                             $(el)
                                 .text()
@@ -163,32 +161,13 @@ const defaultDomain = url => {
                                 Recipe.instructions.push(text);
                             }
                         });
-                    });
-
-                    $(".mv-create-time").each((i, el) => {
-                        let label = ""
-                        label = $(el)
-                        .children(".mv-create-time-label")
-                        .text().toLowerCase();
-                        console.log("HERE IS LABEL: ", label)
-
-                        let time = $(el)
-                        .children(".mv-time-minutes")
-                        .text().toLowerCase().replace("minutes","").replace("minute","").replace("min", "").replace("m", "");
-                        if (label.includes("prep")) {
-                        Recipe.time.prep = time;
-                        } else if (label.includes("cook")) {
-                        Recipe.time.cook = time;
-                        } else if (label.includes("additional")) {
-                        Recipe.time.inactive = time;
-                        } else if (label.includes("total")) {
-                        Recipe.time.total = time;
-                        }
-                    });
+                    
+                    Recipe.time.prep = $(".mv-create-time-prep").text().match(/\d+/)[0]
+                    Recipe.time.cook = $(".mv-create-time-active").text().match(/\d+/)[0]
+                    Recipe.time.inactive = $(".mv-create-time-additional").text().match(/\d+/)[0]
+                    Recipe.time.total = $(".mv-create-time-total").text().match(/\d+/)[0]
 
                     let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase();
-                    console.log("HERE IS SERVINGS: ", servings)
-                    console.log("HERE IS CLEANED SERVINGS: ", servings.replace(":","").replace("yield", "").replace("servings", "").trim())
                     Recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()
 
                 }

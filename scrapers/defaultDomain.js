@@ -133,10 +133,8 @@ const defaultDomain = url => {
                         Recipe.name = $(".mv-create-title").text();
                     }
 
-                    $(".mv-create-ingredients").each((i, el) => {
-                        $(el)
-                        .children()
-                        .each((i, el) => {
+                    $(".mv-create-ingredients").find("li")
+                    .each((i, el) => {
                             var text = 
                             $(el)
                                 .text()
@@ -147,7 +145,6 @@ const defaultDomain = url => {
                                 Recipe.ingredients.push(text);
                             }
                         });
-                    });
 
                     $(".mv-create-instructions").find("li")
                     .each((i, el) => {
@@ -172,7 +169,7 @@ const defaultDomain = url => {
                     
                     let total =  $(".mv-create-time-total").text()
                     Recipe.time.total = total ? total.match(/\d+/)[0] : ""
-                    
+
                     let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase();
                     Recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()
 

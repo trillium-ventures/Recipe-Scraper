@@ -91,11 +91,14 @@ const defaultDomain = url => {
                     });
 
                     $(".wprm-recipe-time-container").each((i, el) => {
+                        let label = ""
                         let label = $(el)
                         .children(".wprm-recipe-time-label")
                         .text();
 
-                        if (!label) {
+                        console.log("HERE IS label: ", label )
+
+                        if (label == "") {
                             label = $(el).
                             children("wprm-recipe-time-header")
                             .text();

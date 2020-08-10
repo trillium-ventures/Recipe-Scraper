@@ -92,7 +92,7 @@ const defaultDomain = url => {
 
                     $(".wprm-recipe-time-container").each((i, el) => {
                         let label = ""
-                        let label = $(el)
+                        label = $(el)
                         .children(".wprm-recipe-time-label")
                         .text();
 

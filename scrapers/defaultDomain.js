@@ -96,13 +96,12 @@ const defaultDomain = url => {
                         .children(".wprm-recipe-time-label")
                         .text();
 
-                        console.log("HERE IS label: ", label )
-
                         if (!label) {
                             console.log("FOUND A BLANK LABEL, CHECKING NEW LABEL")
-                            label = $(el).
-                            children("wprm-recipe-time-header")
+                            label = $(el)
+                            .children(".wprm-recipe-time-header")
                             .text();
+                            console.log("HERE IS LABEL: ", label)
                         }
                         let time = $(el)
                         .children(".wprm-recipe-time")

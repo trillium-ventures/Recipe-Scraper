@@ -169,19 +169,19 @@ const defaultDomain = url => {
                         let label = ""
                         label = $(el)
                         .children(".mv-create-time-label")
-                        .text().toLowerCase;
+                        .text().toLowerCase();
                         console.log("HERE IS LABEL: ", label)
 
                         let time = $(el)
                         .children(".mv-time-minutes")
                         .text().toLowerCase().replace("minutes","").replace("minute","").replace("min", "").replace("m", "");
-                        if (label && label.includes("prep")) {
+                        if (label.includes("prep")) {
                         Recipe.time.prep = time;
-                        } else if (label && label.includes("cook")) {
+                        } else if (label.includes("cook")) {
                         Recipe.time.cook = time;
-                        } else if (label && label.includes("additional")) {
+                        } else if (label.includes("additional")) {
                         Recipe.time.inactive = time;
-                        } else if (label && label.includes("total")) {
+                        } else if (label.includes("total")) {
                         Recipe.time.total = time;
                         }
                     });

@@ -186,7 +186,7 @@ const defaultDomain = url => {
                         }
                     });
 
-                    let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase;
+                    let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase();
                     console.log("HERE IS SERVINGS: ", servings)
                     console.log("HERE IS CLEANED SERVINGS: ", servings.replace(":","").replace("yield", "").replace("servings", "").trim())
                     Recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()

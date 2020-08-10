@@ -105,14 +105,16 @@ const defaultDomain = url => {
                         }
                         let time = $(el)
                         .children(".wprm-recipe-time")
-                        .text();
-                        if (label.includes("Prep")) {
+                        .text().toLowerCase();
+                        if (label.includes("prep")) {
                         Recipe.time.prep = time;
-                        } else if (label.includes("Cook")) {
+                        } else if (label.includes("cook")) {
                         Recipe.time.cook = time;
-                        } else if (label.includes("Resting")) {
+                        } else if (label.includes("resting")) {
                         Recipe.time.inactive = time;
-                        } else if (label.includes("Total")) {
+                        } else if (label.includes("inactive")) {
+                            Recipe.time.inactive = time;
+                        } else if (label.includes("total")) {
                         Recipe.time.total = time;
                         }
                     });
@@ -123,6 +125,71 @@ const defaultDomain = url => {
                         .text()
                         .trim();
                     }
+                }
+
+                else if ($('.mv-create-ingredients').length > 0) {
+
+                    if (!Recipe.name) {
+                        Recipe.name = $(".mv-create-title").text();
+                    }
+
+                    $(".mv-create-ingredients").each((i, el) => {
+                        $(el)
+                        .children()
+                        .each((i, el) => {
+                            var text = 
+                            $(el)
+                                .text()
+                                .replace(/\s\s+/g, " ")
+                                .trim()
+                            if (text && text.toLowerCase() !== "ingredients") {
+                                console.log("PUSHING THIS TEXT FOR INGREDIENTS: ", text)
+                                Recipe.ingredients.push(text);
+                            }
+                        });
+                    });
+
+                    $(".mv-create-instructions").each((i, el) => {
+                        $(el)
+                        .children()
+                        .each((i, el) => {
+                            var text = 
+                            $(el)
+                                .text()
+                                .replace(/\s\s+/g, " ")
+                                .trim()
+                            if (text && text.toLowerCase() !== "instructions") {
+                                console.log("PUSHING THIS TEXT FOR INSTRUCTIONS: ", text)
+                                Recipe.instructions.push(text);
+                            }
+                        });
+                    });
+
+                    $(".mv-create-time").each((i, el) => {
+                        let label = ""
+                        label = $(el)
+                        .children(".mv-create-time-label")
+                        .text().toLowerCase;
+
+                        let time = $(el)
+                        .children(".mv-time-minutes")
+                        .text().toLowerCase().replace("minutes","").replace("minute","").replace("min", "").replace("m", "");
+                        if (label.includes("prep")) {
+                        Recipe.time.prep = time;
+                        } else if (label.includes("cook")) {
+                        Recipe.time.cook = time;
+                        } else if (label.includes("additional")) {
+                        Recipe.time.inactive = time;
+                        } else if (label.includes("total")) {
+                        Recipe.time.total = time;
+                        }
+                    });
+
+                    let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase;
+                    console.log("HERE IS SERVINGS: ", servings)
+                    console.log("HERE IS CLEANED SERVINGS: ", servings.replace(":","").replace("yield", "").replace("servings", "").trim())
+                    Recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()
+
                 }
 
                 if (Recipe.ingredients.length === 0) {

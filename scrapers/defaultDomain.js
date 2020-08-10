@@ -161,12 +161,18 @@ const defaultDomain = url => {
                                 Recipe.instructions.push(text);
                             }
                         });
-                    
-                    Recipe.time.prep = $(".mv-create-time-prep").text().match(/\d+/)[0]
-                    Recipe.time.cook = $(".mv-create-time-active").text().match(/\d+/)[0]
-                    Recipe.time.inactive = $(".mv-create-time-additional").text().match(/\d+/)[0]
-                    Recipe.time.total = $(".mv-create-time-total").text().match(/\d+/)[0]
+                    let prep = $(".mv-create-time-prep").text()
+                    Recipe.time.prep = prep ? prep.match(/\d+/)[0] : ""
 
+                    let active =  $(".mv-create-time-active").text()
+                    Recipe.time.active = active ? active.match(/\d+/)[0] : ""
+
+                    let inactive =  $(".mv-create-time-additional").text()
+                    Recipe.time.inactive = inactive ? inactive.match(/\d+/)[0] : ""
+                    
+                    let total =  $(".mv-create-time-total").text()
+                    Recipe.time.total = total ? total.match(/\d+/)[0] : ""
+                    
                     let servings = $(".mv-create-nutrition-yield").text().trim().toLowerCase();
                     Recipe.servings = servings.replace(":","").replace("yield", "").replace("servings", "").trim()
 

@@ -16,7 +16,7 @@ const nigella = url => {
           Recipe.image = $("meta[property='og:image']").attr("content");
           Recipe.name = $("meta[property='og:title']").text();
 
-          $(".recipeIngredient").each((i, el) => {
+          $("*[itemprop = 'recipeIngredient']").each((i, el) => {
             Recipe.ingredients.push(
               $(el)
                 .text()
@@ -24,7 +24,7 @@ const nigella = url => {
             );
           });
 
-          $(".recipeInstructions")
+          $("*[itemprop = 'recipeInstructions']")
             .find("ol")
             .find("li")
             .each((i, el) => {
@@ -40,7 +40,7 @@ const nigella = url => {
             !Recipe.name ||
             !Recipe.ingredients.length          ) 
           {
-            reject(new Error("No recipe found on page"));
+            reject(new Error("No recipe found on page", Recipe));
           } else {
             resolve(Recipe);
           }

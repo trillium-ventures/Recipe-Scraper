@@ -5,6 +5,7 @@ const domains = {
   alexandracooks: require("./alexandracooks"),
   allrecipes: require("./allrecipes"),
   ambitiouskitchen: require("./ambitiouskitchen"),
+  archanaskitchen: require("./archanaskitchen"),
   averiecooks: require("./averiecooks"),
   bbc: require("./bbc"),
   bbcgoodfood: require("./bbcgoodfood"),

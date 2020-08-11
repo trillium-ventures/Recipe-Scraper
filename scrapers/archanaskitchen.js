@@ -3,21 +3,21 @@ const cheerio = require("cheerio");
 
 const RecipeSchema = require("../helpers/recipe-schema");
 
-const nigella = url => {
+const archanaskitchen = url => {
   const Recipe = new RecipeSchema();
   return new Promise((resolve, reject) => {
-    if (!url.includes("nigella.com/")) {
-      reject(new Error("url provided must include 'nigella.com/'"));
+    if (!url.includes("archanaskitchen.com/")) {
+      reject(new Error("url provided must include 'archanaskitchen.com/'"));
     } else {
       request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {
-          console.log("TRIGGERING NIGELLA SCRAPER")
+          console.log("TRIGGERING ARCHANA SCRAPER")
           const $ = cheerio.load(html);
 
           Recipe.image = $("meta[property='og:image']").attr("content");
           Recipe.name = $("meta[property='og:title']").attr("content");
 
-          $("*[itemprop = 'recipeIngredient']").each((i, el) => {
+          $("*[itemprop = 'ingredients']").each((i, el) => {
             Recipe.ingredients.push(
               $(el)
                 .text()
@@ -26,17 +26,30 @@ const nigella = url => {
           });
 
           $("*[itemprop = 'recipeInstructions']")
-            .find("ol")
-            .find("li")
             .each((i, el) => {
               Recipe.instructions.push($(el).text());
             });
 
           let servings = $("*[itemprop = 'recipeYield']").text()
-          
           if (servings) {
             Recipe.servings = servings.toLowerCase().replace(":","").replace("makes","").trim()
           }
+
+          let prepTime = $("*[itemprop = 'prepTime']").text()
+          if (prepTime) {
+            Recipe.time.prep = prepTime ? prepTime.match(/\d+/)[0] : ""
+          }
+
+          let cookTime = $("*[itemprop = 'cookTime']").text()
+          if (cookTime) {
+            Recipe.time.cook = cookTime ? cookTime.match(/\d+/)[0] : ""
+          }
+
+          let totalTime = $("*[itemprop = 'totalTime']").text()
+          if (totalTime) {
+            Recipe.time.total = totalTime ? totalTime.match(/\d+/)[0] : ""
+          }
+
           console.log("HERE IS RECIPE: ", Recipe)
           if (
             !Recipe.name ||
@@ -55,4 +68,4 @@ const nigella = url => {
   });
 };
 
-module.exports = nigella;
+module.exports = archanaskitchen;

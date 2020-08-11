@@ -14,9 +14,9 @@ const nigella = url => {
           const $ = cheerio.load(html);
 
           Recipe.image = $("meta[property='og:image']").attr("content");
-          Recipe.name = $(".heading__title").text();
+          Recipe.name = $("meta[property='og:title']").text();
 
-          $(".simple-list__item").each((i, el) => {
+          $(".recipeIngredient").each((i, el) => {
             Recipe.ingredients.push(
               $(el)
                 .text()
@@ -24,25 +24,22 @@ const nigella = url => {
             );
           });
 
-          $(".section-content")
+          $(".recipeInstructions")
             .find("ol")
-            .find("p")
+            .find("li")
             .each((i, el) => {
               Recipe.instructions.push($(el).text());
             });
 
-          let metaText = $(".meta-text__data");
-          Recipe.time.total = metaText.first().text();
-          Recipe.time.prep = $(metaText.get(1)).text();
-          Recipe.time.cook = $(metaText.get(2)).text();
-
-          Recipe.servings = metaText.last().text();
+          let servings = $(".recipeYield").text()
+          if (servings) {
+            Recipe.servings = servings.toLowerCase().replace(":","").replace("makes","")
+          }
 
           if (
             !Recipe.name ||
-            !Recipe.ingredients.length ||
-            !Recipe.instructions.length
-          ) {
+            !Recipe.ingredients.length          ) 
+          {
             reject(new Error("No recipe found on page"));
           } else {
             resolve(Recipe);

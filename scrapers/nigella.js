@@ -15,7 +15,7 @@ const nigella = url => {
           const $ = cheerio.load(html);
 
           Recipe.image = $("meta[property='og:image']").attr("content");
-          Recipe.name = $("meta[property='og:title']").text();
+          Recipe.name = $("meta[property='og:title']").attr("content");
 
           $("*[itemprop = 'recipeIngredient']").each((i, el) => {
             Recipe.ingredients.push(

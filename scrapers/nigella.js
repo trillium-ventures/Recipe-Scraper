@@ -11,6 +11,7 @@ const nigella = url => {
     } else {
       request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {
+          console.log("TRIGGERING NIGELLA SCRAPER")
           const $ = cheerio.load(html);
 
           Recipe.image = $("meta[property='og:image']").attr("content");
@@ -35,7 +36,7 @@ const nigella = url => {
           if (servings) {
             Recipe.servings = servings.toLowerCase().replace(":","").replace("makes","")
           }
-
+          console.log("HERE IS RECIPE: ", Recipe)
           if (
             !Recipe.name ||
             !Recipe.ingredients.length          ) 

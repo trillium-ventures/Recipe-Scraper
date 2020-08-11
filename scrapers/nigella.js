@@ -32,7 +32,8 @@ const nigella = url => {
               Recipe.instructions.push($(el).text());
             });
 
-          let servings = $(".recipeYield").text()
+          let servings = $("*[itemprop = 'recipeYield']").text()
+          
           if (servings) {
             Recipe.servings = servings.toLowerCase().replace(":","").replace("makes","")
           }

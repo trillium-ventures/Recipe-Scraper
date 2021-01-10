@@ -19,7 +19,6 @@ const defaultDomain = url => {
                 }
 
                 // check if it is a tasty recipes plug in, and follow structure if yes.
-               
                 if ($('.tasty-recipes').length > 0) {
                     $(".tasty-recipes-ingredients")
                     .find("li")
@@ -105,17 +104,21 @@ const defaultDomain = url => {
                         }
                         let time = $(el)
                         .children(".wprm-recipe-time")
-                        .text().toLowerCase();
-                        if (label.includes("prep")) {
-                        Recipe.time.prep = time;
-                        } else if (label.includes("cook")) {
-                        Recipe.time.cook = time;
-                        } else if (label.includes("resting")) {
-                        Recipe.time.inactive = time;
-                        } else if (label.includes("inactive")) {
+                        .text()
+                        
+                        if (time) {
+                            time.toLowerCase();
+                            if (label.includes("prep")) {
+                            Recipe.time.prep = time;
+                            } else if (label.includes("cook")) {
+                            Recipe.time.cook = time;
+                            } else if (label.includes("resting")) {
                             Recipe.time.inactive = time;
-                        } else if (label.includes("total")) {
-                        Recipe.time.total = time;
+                            } else if (label.includes("inactive")) {
+                                Recipe.time.inactive = time;
+                            } else if (label.includes("total")) {
+                            Recipe.time.total = time;
+                            }
                         }
                     });
 

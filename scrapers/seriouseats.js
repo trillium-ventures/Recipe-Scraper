@@ -30,8 +30,8 @@ const seriousEats = url => {
             resolve(Recipe);
           }
         } else {
-          console.log("NO RECIPE FOUND!!! ", Recipe.name, Recipe.ingredients, Recipe.instructions)
-          reject(new Error("No recipe found on page ", Recipe.name, Recipe.ingredients, Recipe.instructions));
+          console.log("NO RECIPE FOUND in error loop!!!  ", error)
+          reject(new Error(error));
         }
       });
     }

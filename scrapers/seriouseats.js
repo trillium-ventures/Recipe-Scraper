@@ -23,14 +23,14 @@ const seriousEats = url => {
 
           if (
             !Recipe.name ||
-            !Recipe.ingredients.length ||
-            !Recipe.instructions.length
-          ) {
+            !Recipe.ingredients.length          ) {
+              console.log("NO RECIPE FOUND!!! ", Recipe.name, Recipe.ingredients, Recipe.instructions)
             reject(new Error("No recipe found on page", Recipe.name, Recipe.ingredients, Recipe.instructions));
           } else {
             resolve(Recipe);
           }
         } else {
+          console.log("NO RECIPE FOUND!!! ", Recipe.name, Recipe.ingredients, Recipe.instructions)
           reject(new Error("No recipe found on page ", Recipe.name, Recipe.ingredients, Recipe.instructions));
         }
       });

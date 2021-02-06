@@ -26,12 +26,12 @@ const seriousEats = url => {
             !Recipe.ingredients.length ||
             !Recipe.instructions.length
           ) {
-            reject(new Error("No recipe found on page"));
+            reject(new Error("No recipe found on page", Recipe.name, Recipe.ingredients, Recipe.instructions));
           } else {
             resolve(Recipe);
           }
         } else {
-          reject(new Error("No recipe found on page"));
+          reject(new Error("No recipe found on page ", Recipe.name, Recipe.ingredients, Recipe.instructions));
         }
       });
     }

@@ -31,7 +31,7 @@ const seriousEats = url => {
             resolve(Recipe);
           }
         } else {
-          reject(new Error("No recipe found on page"));
+          reject(new Error("No recipe found on page ", Recipe.name, Recipe.ingredients, Recipe.instructions));
         }
       });
     }

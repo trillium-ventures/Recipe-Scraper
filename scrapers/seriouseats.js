@@ -12,13 +12,53 @@ const seriousEats = url => {
       request(url, (error, response, html) => {
         if (!error && response.statusCode === 200) {
           const $ = cheerio.load(html);
-
+          console.log("GOT A 200 response! All good!")
           if (url.includes("seriouseats.com/sponsored/")) {
             reject(
               new Error("seriouseats.com sponsored recipes not supported")
             );
           } else {
-            regularRecipe($, Recipe);
+            //regularRecipe($, Recipe);
+            console.log("IN ELSE LOOP, HERE IS INITIAL RECIPE: ", Recipe);
+            Recipe.name = $("meta[property='og:title']").attr("content")
+            .text()
+            .replace(/\s\s+/g, "");
+
+            Recipe.image = $("meta[property='og:image']").attr("content");
+
+            $(".ingredient").each((i, el) => {
+              const item = $(el).text();
+              Recipe.ingredients.push(item);
+            });
+
+            $(".recipe-about")
+            .children("li")
+            .each((i, el) => {
+              const label = $(el)
+                .children(".label")
+                .text();
+              const info = $(el)
+                .children(".info")
+                .text();
+        
+              if (label.includes("Active")) {
+                Recipe.time.active = info;
+              } else if (label.includes("Total")) {
+                Recipe.time.total = info;
+              } else if (label.includes("Yield")) {
+                Recipe.servings = info;
+              }
+            });
+        
+          $(".recipe-procedure-text").each((i, el) => {
+            Recipe.instructions.push(
+              $(el)
+                .text()
+                .replace(/\s\s+/g, "")
+            );
+          });
+
+          console.log("HERE IS FINAL RECIPE: ", Recipe)
           }
 
           if (

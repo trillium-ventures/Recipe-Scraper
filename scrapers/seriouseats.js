@@ -20,55 +20,55 @@ const seriousEats = url => {
           } else {
             //regularRecipe($, Recipe);
             console.log("IN ELSE LOOP, HERE IS INITIAL RECIPE: ", Recipe);
-            Recipe.name = $("meta[property='og:title']").attr("content")
-            .text()
-            .replace(/\s\s+/g, "");
+            // Recipe.name = $("meta[property='og:title']").attr("content")
+            // .text()
+            // .replace(/\s\s+/g, "");
 
             Recipe.image = $("meta[property='og:image']").attr("content");
 
-            $(".ingredient").each((i, el) => {
-              const item = $(el).text();
-              Recipe.ingredients.push(item);
-            });
+          //   $(".ingredient").each((i, el) => {
+          //     const item = $(el).text();
+          //     Recipe.ingredients.push(item);
+          //   });
 
-            $(".recipe-about")
-            .children("li")
-            .each((i, el) => {
-              const label = $(el)
-                .children(".label")
-                .text();
-              const info = $(el)
-                .children(".info")
-                .text();
+          //   $(".recipe-about")
+          //   .children("li")
+          //   .each((i, el) => {
+          //     const label = $(el)
+          //       .children(".label")
+          //       .text();
+          //     const info = $(el)
+          //       .children(".info")
+          //       .text();
         
-              if (label.includes("Active")) {
-                Recipe.time.active = info;
-              } else if (label.includes("Total")) {
-                Recipe.time.total = info;
-              } else if (label.includes("Yield")) {
-                Recipe.servings = info;
-              }
-            });
+          //     if (label.includes("Active")) {
+          //       Recipe.time.active = info;
+          //     } else if (label.includes("Total")) {
+          //       Recipe.time.total = info;
+          //     } else if (label.includes("Yield")) {
+          //       Recipe.servings = info;
+          //     }
+          //   });
         
-          $(".recipe-procedure-text").each((i, el) => {
-            Recipe.instructions.push(
-              $(el)
-                .text()
-                .replace(/\s\s+/g, "")
-            );
-          });
+          // $(".recipe-procedure-text").each((i, el) => {
+          //   Recipe.instructions.push(
+          //     $(el)
+          //       .text()
+          //       .replace(/\s\s+/g, "")
+          //   );
+          // });
 
           console.log("HERE IS FINAL RECIPE: ", Recipe)
           }
 
-          if (
-            !Recipe.name ||
-            !Recipe.ingredients.length          ) {
-              console.log("NO RECIPE FOUND!!! ", Recipe.name, Recipe.ingredients, Recipe.instructions)
-            reject(new Error("No recipe found on page", Recipe.name, Recipe.ingredients, Recipe.instructions));
-          } else {
+          // if (
+          //   !Recipe.name ||
+          //   !Recipe.ingredients.length          ) {
+          //     console.log("NO RECIPE FOUND!!! ", Recipe.name, Recipe.ingredients, Recipe.instructions)
+          //   reject(new Error("No recipe found on page", Recipe.name, Recipe.ingredients, Recipe.instructions));
+          // } else {
             resolve(Recipe);
-          }
+          // }
         } else {
           console.log("NO RECIPE FOUND in error loop!!!  ", error)
           reject(new Error(error));

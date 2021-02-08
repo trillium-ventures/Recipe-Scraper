@@ -70,7 +70,7 @@ const seriousEats = url => {
             resolve(Recipe);
           // }
         } else {
-          console.log("NO RECIPE FOUND in error loop!!!  ", error)
+          console.log("NO RECIPE FOUND in error loop!!!  ", error, response.statusCode)
           reject(new Error(error));
         }
       });
